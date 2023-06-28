@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import GsmSignal from '../assets/images/Group.svg';
 import WiFIicon from '../assets/images/WIFI.svg';
@@ -8,18 +8,32 @@ import InformationButton from '../assets/images/information-button 1.svg'
 import FireBonus from '../assets/images/path_241 1.svg'
 import BonusButton from '../assets/images/BonusButton.svg'
 
-import { getToken } from "../http/bonusAPI";
+import { getBonus, getToken } from "../http/bonusAPI";
 
 const Bonus = () => {
+    const [currentBonus, setCurrentBonus] = useState(0)
+    const [burningQuantity, setBurningQuantity] = useState(0)
+    const [dateBurning, setDateBurning] = useState('00.00')
+
     const click = async(e) => {
         e.preventDefault();
         try {
             let data = await getToken()
-            console.log(data)
+            let bonus = await getBonus()
+            setCurrentBonus(bonus.data.currentQuantity)
+            setBurningQuantity(bonus.data.forBurningQuantity)
+            setDateBurning(formatDate(bonus.data.dateBurning));
         } catch (e) {
             alert(e.response.data.message)
         }
     }
+
+    const formatDate = (dateString) => {
+        const dateObj = new Date(dateString);
+        const day = dateObj.getDate().toString().padStart(2, '0');
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        return `${day}.${month}`;
+    };
 
 
     return (
@@ -70,13 +84,13 @@ const Bonus = () => {
                 <div className="page__bonus-block bonus-block">
                     <div className="bonus-block__container">
                         <div className="bonus-block__info info">
-                            <h1 className="info__title">300 бонусов</h1>
+                            <h1 className="info__title">{currentBonus} бонусов</h1>
                             <div className="info__fire-bonus">
-                                <div className="fire-bonus__date">29.03 сгорит</div>
+                                <div className="fire-bonus__date">{dateBurning} сгорит</div>
                                 <div className="fire-bonus__icon">
                                     <img src={FireBonus} alt="fire bonus" className="" />
                                 </div>
-                                <div className="fire-bonus__quantity">250 бонусов</div>
+                                <div className="fire-bonus__quantity">{burningQuantity} бонусов</div>
                             </div>
                         </div>
                         <div className="bonus-block__button">

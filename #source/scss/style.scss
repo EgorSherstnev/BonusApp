@@ -1,7 +1,8 @@
 @import 'nullstyle';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Helvetica&display=swap');
 
-$font_header_technical: 'Helvetica';
+$font_header_technical: Arial, Helvetica, sans-serif;
 $font_header_info: 'Open Sans';
 
 @media (min-width: 375px) {
@@ -18,13 +19,14 @@ $font_header_info: 'Open Sans';
         box-sizing: content-box;
     }
     .header__technical {
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: $font_header_technical;
         font-size: 12px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding-top: 4px;
         .technical__left {
+            
             display: flex;
             align-items: center;
             justify-content:flex-start;
@@ -71,6 +73,7 @@ $font_header_info: 'Open Sans';
         }
     }
     .header__info {
+        font-family: $font_header_technical;
         min-height: 132px;
         font-size: 16px;
         display: flex;
@@ -82,8 +85,6 @@ $font_header_info: 'Open Sans';
         background: var(--unnamed, linear-gradient(180deg, #D2333E 0%, #F54B55 100%));
         .bonus-block__container {
             font-family: $font_header_info;
-            //position: relative;
-           // z-index: 2;
             margin: -56px 20px 0 20px;
             display: flex;
             align-items: center;
